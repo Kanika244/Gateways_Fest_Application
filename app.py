@@ -14,9 +14,7 @@ import re
 
 nltk.download('stopwords', quiet=True)
 
-# ─────────────────────────────────────────────
-# PAGE CONFIG
-# ─────────────────────────────────────────────
+
 st.set_page_config(
     page_title="GATEWAYS-2025 | Analytics Dashboard",
     page_icon="🎓",
@@ -24,9 +22,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─────────────────────────────────────────────
-# MINIMAL CSS
-# ─────────────────────────────────────────────
+
 st.markdown("""
 <style>
 #MainMenu, footer { visibility: hidden; }
@@ -55,9 +51,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ─────────────────────────────────────────────
-# DATA LOADER
-# ─────────────────────────────────────────────
+
 @st.cache_data
 def load_data():
     df = pd.read_csv("C5_FestDataset.csv")
@@ -97,9 +91,7 @@ def prepare_state_map_data(df):
 
 df = load_data()
 
-# ─────────────────────────────────────────────
-# SIDEBAR FILTERS
-# ─────────────────────────────────────────────
+
 with st.sidebar:
     st.markdown("## GATEWAYS-2025")
     st.markdown("---")
@@ -127,18 +119,14 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("<small style='color:#718096'>GATEWAYS-2025 • Analytics v1.0</small>", unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
-# APPLY FILTERS
-# ─────────────────────────────────────────────
+
 fdf = df.copy()
 if sel_state != "All States":   fdf = fdf[fdf["State"] == sel_state]
 if sel_event != "All Events":   fdf = fdf[fdf["Event Name"] == sel_event]
 if sel_type  != "All Types":    fdf = fdf[fdf["Event Type"] == sel_type]
 fdf = fdf[fdf["Rating"] >= sel_rating]
 
-# ─────────────────────────────────────────────
-# PLOTLY THEME
-# ─────────────────────────────────────────────
+
 PLOTLY_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
@@ -146,16 +134,11 @@ PLOTLY_LAYOUT = dict(
 )
 ACCENT_COLORS = px.colors.qualitative.Vivid
 
-# ─────────────────────────────────────────────
-# HEADER (shown on all pages)
-# ─────────────────────────────────────────────
+
 st.title("GATEWAYS-2025 Analytics Dashboard")
 st.caption("National-Level Fest • Participation & Feedback Intelligence")
 st.divider()
 
-# ─────────────────────────────────────────────────────────────────
-# PAGE 1 – OVERVIEW DASHBOARD
-# ─────────────────────────────────────────────────────────────────
 if page == "Overview Dashboard":
 
     # KPI CARDS
@@ -245,9 +228,7 @@ if page == "Overview Dashboard":
     """, unsafe_allow_html=True)
 
 
-# ─────────────────────────────────────────────────────────────────
-# PAGE 2 – PARTICIPATION ANALYSIS
-# ─────────────────────────────────────────────────────────────────
+
 elif page == "Participation Analysis":
 
     st.subheader("Participation Analysis")
@@ -323,9 +304,7 @@ elif page == "Participation Analysis":
     </div>""", unsafe_allow_html=True)
 
 
-# ─────────────────────────────────────────────────────────────────
-# PAGE 3 – STATE-WISE INDIA MAP
-# ─────────────────────────────────────────────────────────────────
+
 elif page == "State-wise India Map":
 
     st.subheader("State-wise Participation on India Map")
